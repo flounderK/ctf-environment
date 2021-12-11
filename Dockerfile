@@ -1,9 +1,11 @@
 FROM ubuntu:20.04
 
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update && apt upgrade -y
-RUN apt install -y git
-WORKDIR /workdir
-RUN git clone "https://github.com/flounderK/ctf-environment"
+RUN apt install -y git sudo
+RUN mkdir -p /workdir/ctf-environment
 WORKDIR /workdir/ctf-environment
+COPY . /workdir/ctf-environment
 
-CMD ["./pull_and_install.sh"]
+CMD ["./install.sh"]

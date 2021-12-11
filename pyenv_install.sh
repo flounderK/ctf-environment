@@ -33,6 +33,8 @@ echo 'eval "$(pyenv init --path)"' >>~/.profile
 
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 
+source "$HOME/.profile"
+
 echo 'Updating pip'
 pip install -U pip
 

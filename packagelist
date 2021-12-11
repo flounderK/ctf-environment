@@ -7,6 +7,7 @@ unzip
 netcat
 socat
 make
+sudo
 build-essential
 zsh
 qemu-system
