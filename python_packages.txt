@@ -1,3 +1,4 @@
 IPython
 pwntools
 capstone
+monkeyhex
