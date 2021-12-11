@@ -1,0 +1,15 @@
+git
+curl
+wget
+gdb
+gcc
+unzip
+netcat
+socat
+make
+build-essential
+zsh
+qemu-system
+qemu-utils
+binwalk
+docker.io
