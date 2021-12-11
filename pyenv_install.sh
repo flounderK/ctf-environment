@@ -33,10 +33,13 @@ echo 'eval "$(pyenv init --path)"' >>~/.profile
 
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 
+echo 'Updating pip'
+pip install -U pip
 
 echo 'pyenv will be fully initialized on next login. Until then, you can run these lines in any terminal that you create'
+echo 'source ~/.profile && source ~/.bashrc'
 
-echo 'export PYENV_ROOT="$HOME/.pyenv"' 
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' 
-echo 'eval "$(pyenv init --path)"'
-echo 'eval "$(pyenv init -)"' 
+# echo 'export PYENV_ROOT="$HOME/.pyenv"' 
+# echo 'export PATH="$PYENV_ROOT/bin:$PATH"' 
+# echo 'eval "$(pyenv init --path)"'
+# echo 'eval "$(pyenv init -)"' 
