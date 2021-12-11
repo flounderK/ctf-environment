@@ -1,4 +1,13 @@
-#!/bin/sh
+#!/bin/bash
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
 
 if [ -z $(command -v git) ];then
 	echo "Please install git"
@@ -53,3 +62,11 @@ if [ "$GEF_SOURCELINE_NEEDED" -ne 0 ];then
 fi
 
 echo "GEF installed"
+
+if [ -f "$HOME/.gdbinit" ]; then
+	mv "$HOME/.gdbinit" "$HOME/.gdbinit.bak"
+	echo "Moved existing gdbinit to $HOME/.gdbinit.bak"
+fi
+
+cp "$DIR/gdbinit" "$HOME/.gdbinit"
+
