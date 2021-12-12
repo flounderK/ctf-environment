@@ -1,6 +1,31 @@
 ---
-# tasks file for pyenv
-- import tasks: "Debian.yml"
-  when: ansible_os_family == "Debian"
- 
+- name: Debian/Ubuntu | Initial dependencies
+  apt:
+    - git
+    - curl
+  state: present
+
+- name: install pyenv
+  shell: curl https://pyenv.run | bash
+
+- name: init pyenv
+  shell: 'eval "$(pyenv virtualenv-init -)"'
+  environment:
+    PYENV_ROOT: '{{ ansible_env.HOME }}/.pyenv'
+    PATH: '{{ ansible_env.HOME }}/.pyenv:{{ ansible_env.PATH }}'
+
+- name: Debian/Ubuntu | Fetch pyenv install dependencies
+  shell: curl https://github.com/pyenv/pyenv/wiki#suggested-build-environment | grep --color=never -Poz '(?<=copy-content="sudo )apt-get install[^"]*' | tr -d '\n' | tr -d '\\' | sed 's/ install / install -y /g'
+  register: python_build_deps
+  changed_when: false
+
+- name: Debian/Ubuntu | Install Python build deps
+  shell: "{{ python_build_deps.stdout }}"
+
+- name: Debian/Ubuntu | Print Python build deps
+  debug:
+    msg: "running '{{ python_build_deps.stdout }}'"
+
+
+
 
