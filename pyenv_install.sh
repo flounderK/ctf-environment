@@ -2,7 +2,7 @@
 
 curl https://pyenv.run | bash
 
-GLOBAL_VERSION="3.7.0"
+GLOBAL_VERSION="3.8.0"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv virtualenv-init -)"
@@ -41,7 +41,7 @@ pip install -U pip
 echo 'pyenv will be fully initialized on next login. Until then, you can run these lines in any terminal that you create'
 echo 'source ~/.profile && source ~/.bashrc'
 
-# echo 'export PYENV_ROOT="$HOME/.pyenv"' 
-# echo 'export PATH="$PYENV_ROOT/bin:$PATH"' 
+# echo 'export PYENV_ROOT="$HOME/.pyenv"'
+# echo 'export PATH="$PYENV_ROOT/bin:$PATH"'
 # echo 'eval "$(pyenv init --path)"'
-# echo 'eval "$(pyenv init -)"' 
+# echo 'eval "$(pyenv init -)"'
