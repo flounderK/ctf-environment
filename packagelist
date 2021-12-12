@@ -12,6 +12,7 @@ vim
 build-essential
 openjdk-11-jdk
 openjdk-11-jre
+ruby
 zsh
 qemu-system
 qemu-utils
