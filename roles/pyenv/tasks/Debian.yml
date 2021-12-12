@@ -1,9 +1,14 @@
----
-- name: Debian/Ubuntu | Initial dependencies
+#
+
+- name: Debian/Ubuntu | git
   apt:
-    - git
-    - curl
-  state: present
+    name: git
+    state: present
+
+- name: Debian/Ubuntu | curl
+  apt:
+    name: curl
+    state: present
 
 - name: install pyenv
   shell: curl https://pyenv.run | bash
@@ -12,20 +17,60 @@
   shell: 'eval "$(pyenv virtualenv-init -)"'
   environment:
     PYENV_ROOT: '{{ ansible_env.HOME }}/.pyenv'
-    PATH: '{{ ansible_env.HOME }}/.pyenv:{{ ansible_env.PATH }}'
+    PATH: '{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}'
 
-- name: Debian/Ubuntu | Fetch pyenv install dependencies
-  shell: curl https://github.com/pyenv/pyenv/wiki#suggested-build-environment | grep --color=never -Poz '(?<=copy-content="sudo )apt-get install[^"]*' | tr -d '\n' | tr -d '\\' | sed 's/ install / install -y /g'
+- name: Debian/Ubuntu | clean up pyenv install dependencies
+  shell: eval "curl https://github.com/pyenv/pyenv/wiki{{ '#' }}suggested-build-environment | grep --color=never -Poz '(?<=copy-content=\"sudo apt-get update; sudo )apt[^\"]*' | tr -d '\n\\\0' | sed 's/ install / install -y /g' | tr '\0' '\n'"
   register: python_build_deps
   changed_when: false
-
-- name: Debian/Ubuntu | Install Python build deps
-  shell: "{{ python_build_deps.stdout }}"
 
 - name: Debian/Ubuntu | Print Python build deps
   debug:
     msg: "running '{{ python_build_deps.stdout }}'"
 
+- name: Debian/Ubuntu | Install Python build deps
+  shell: "{{ python_build_deps.stdout }}"
 
+
+- name: Install python
+  shell: pyenv install {{ python_install_version | default('3.8.0') }}
+  environment:
+    PYENV_ROOT: '{{ ansible_env.HOME }}/.pyenv'
+    PATH: '{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}'
+
+- name: Set global python
+  shell: pyenv global {{ python_install_version | default('3.8.0') }}
+  environment:
+    PYENV_ROOT: '{{ ansible_env.HOME }}/.pyenv'
+    PATH: '{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}'
+
+- name: add pyenv init stuff to profile
+  shell: |
+    sed -Ei -e '/^([^{{ "#" }}]$)/ {{ "{" }}a \
+    export PYENV_ROOT="$HOME/.pyenv"
+    a \
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    a \
+    ' -e ':a' -e '$!{{ "{" }}n;ba{{ "}" }};{{ "}" }}' ~/.profile
+    echo 'eval "$(pyenv init --path)"' >> ~/.profile
+    echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+  register: pyenv_profile
+  tags:
+    - profilesetup
+
+- name: print pyenv_profile output
+  debug:
+    msg: pyenv_profile
+  tags:
+    - profilesetup
+
+- name: Update pip
+  shell: |
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    pip install -U pip
+  environment:
+    PYENV_ROOT: '{{ ansible_env.HOME }}/.pyenv'
+    PATH: '{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}'
 
 
