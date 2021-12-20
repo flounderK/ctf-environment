@@ -17,7 +17,9 @@ ENV {{ var }} {{ value }}
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update && apt upgrade -y
-RUN apt install -y git sudo python3
+RUN apt install -y git sudo python3 openssl
+RUN useradd -ms /bin/bash -p "$(openssl passwd -1 ubuntu)" testuser
+# USER testuser
 # RUN mkdir -p /workdir/ctf-environment
 # WORKDIR /workdir/ctf-environment
 # COPY . /workdir/ctf-environment
