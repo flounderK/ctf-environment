@@ -9,5 +9,9 @@
 	{
 		"project_slug": "rizinorg/cutter",
 		"match": "Linux"
+	},
+	{
+		"project_slug": "upx/upx",
+		"match": "amd64"
 	}
 ]

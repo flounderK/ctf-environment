@@ -14,7 +14,8 @@ log.addHandler(logging.StreamHandler())
 log.setLevel(logging.WARNING)
 
 GITHUB_RELEASE_URL = "https://api.github.com/repos/%s/releases/latest"
-VALID_JSON_KEYS = ('project_slug', 'match', 'destination', 'api_info_only')
+VALID_JSON_KEYS = ('project_slug', 'match', 'destination', 'api_info_only',
+                   'test_match')
 
 
 def get_release_api_info(slug, session=None):
@@ -29,9 +30,22 @@ def get_release_api_info(slug, session=None):
     return dat
 
 
-def get_latest_asset_url(slug, match=None, session=None):
+def get_assets(slug, session=None):
     dat = get_release_api_info(slug, session)
     assets = dat['assets']
+    return assets
+
+
+def get_matching_asset_urls(assets, match=None):
+    urls = [i['browser_download_url'] for i in assets]
+    if match is None:
+        return urls
+    return [i for i in urls if re.search(match, i) is not None]
+
+
+def get_latest_asset_url(slug, match=None, session=None):
+    assets = get_assets(slug, session)
+
     if not assets:
         raise Exception(f"Release for {slug} has no assets")
 
@@ -43,10 +57,7 @@ def get_latest_asset_url(slug, match=None, session=None):
                         "match string, need a string to match "
                         "to know which to download")
 
-    matched_assets = [i for i in assets if
-                      re.search(match, i['browser_download_url'])
-                      is not None]
-
+    matched_assets = get_matching_asset_urls(assets, match)
     if not matched_assets:
         raise Exception(f"{slug} had no matching assets")
 
@@ -54,7 +65,7 @@ def get_latest_asset_url(slug, match=None, session=None):
         log.warning("More than one matching asset for %s "
                     "defaulting to first", slug)
 
-    return matched_assets[0]['browser_download_url']
+    return matched_assets[0]
 
 
 def download_media(url, destination=None, session=None):
@@ -101,17 +112,8 @@ def parse_args(arguments):
                         action="store_true",
                         help="Print the api-data for the given "
                         "slug out and return")
-    # parser.add_argument("-i", "--install",
-    #                     help="Extract downloaded file to this "
-    #                     "location. Requires permissions in "
-    #                     "target directory")
-    # parser.add_argument("--strip-components", default=0, type=int,
-    #                     help="If unzipped, strip NUMBER of "
-    #                     "leading components from file names on "
-    #                     "extraction")
-    # parser.add_argument("--rename",
-    #                     help="rename top level directory if "
-    #                     "unzipped")
+    parser.add_argument("-t", "--test-match", default=False,
+                        action="store_true")
     parser.add_argument("--debug", action="store_true",
                         default=False,
                         help="Enable debug logging")
@@ -126,14 +128,20 @@ def parse_args(arguments):
 
 
 def handle_single_slug_arg(project_slug, match=None, destination=None,
-                           api_info_only=False):
+                           api_info_only=False, test_match=False):
     if api_info_only is True:
         dat = get_release_api_info(project_slug)
         return json.dumps(dat, indent=2)
-    else:
-        url = get_latest_asset_url(project_slug, match)
-        filename = download_media(url, destination)
-        return filename
+
+    if test_match is True:
+        assets = get_assets(project_slug)
+        urls = get_matching_asset_urls(assets, match)
+        return urls
+
+    # normal download
+    url = get_latest_asset_url(project_slug, match)
+    filename = download_media(url, destination)
+    return filename
 
 
 def handle_json_file(args):
@@ -168,8 +176,14 @@ if __name__ == "__main__":
         res = handle_single_slug_arg(args.project_slug,
                                      args.match,
                                      args.destination,
-                                     args.api_info_only)
-        print(res)
+                                     args.api_info_only,
+                                     args.test_match)
+        if isinstance(res, list):
+            for i in res:
+                print(i)
+        else:
+            print(res)
+
     else:
         handle_json_file(args)
 
