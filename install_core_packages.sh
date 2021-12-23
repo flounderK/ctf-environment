@@ -10,5 +10,6 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 
+sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install -y $(cat "$DIR/packagelist" | tr '\n' ' ')

@@ -37,6 +37,7 @@ source "$HOME/.profile"
 
 echo 'Updating pip'
 pip install -U pip
+pip install -U setuptools
 
 echo 'pyenv will be fully initialized on next login. Until then, you can run these lines in any terminal that you create'
 echo 'source ~/.profile && source ~/.bashrc'

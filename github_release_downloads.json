@@ -1,0 +1,13 @@
+[
+	{
+		"project_slug": "radareorg/radare2",
+		"match": "/radare2_.*amd64"
+	},
+	{
+		"project_slug": "NationalSecurityAgency/ghidra"
+	},
+	{
+		"project_slug": "rizinorg/cutter",
+		"match": "Linux"
+	}
+]

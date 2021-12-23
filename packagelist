@@ -10,6 +10,8 @@ make
 sudo
 vim
 build-essential
+binutils
+binutils-i686-gnu
 openjdk-11-jdk
 openjdk-11-jre
 ruby
@@ -18,3 +20,5 @@ qemu-system
 qemu-utils
 binwalk
 docker.io
+tmux
+xinetd
