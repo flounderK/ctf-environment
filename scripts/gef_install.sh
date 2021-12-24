@@ -68,5 +68,5 @@ if [ -f "$HOME/.gdbinit" ]; then
 	echo "Moved existing gdbinit to $HOME/.gdbinit.bak"
 fi
 
-cp "$DIR/gdbinit" "$HOME/.gdbinit"
+cp "$DIR/../gdbinit" "$HOME/.gdbinit"
 

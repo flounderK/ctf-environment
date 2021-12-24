@@ -10,9 +10,10 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 
-eval "$DIR/install_core_packages.sh"
-eval "$DIR/pyenv_install.sh"
+eval "$DIR/scripts/install_core_packages.sh"
+eval "$DIR/scripts/pyenv_install.sh"
 source "$HOME/.profile"
-pip install -r "$DIR/python_packages.txt"
-eval "$DIR/gef_install.sh"
+pip install -r "$DIR/config/python_packages.txt"
+eval "$DIR/scripts/gef_install.sh"
+# eval "$DIR/scripts/snap_installs.sh"
 

@@ -7,5 +7,9 @@ RUN apt install -y git sudo curl
 RUN mkdir -p /workdir/ctf-environment
 WORKDIR /workdir/ctf-environment
 COPY . /workdir/ctf-environment
+RUN echo "ALL       ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN useradd -m -s "/bin/bash" --uid=1000 testuser
+
+USER 1000:1000
 
 CMD ["./install.sh"]
