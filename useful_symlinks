@@ -1,3 +1,0 @@
-/opt/ghidra/ghidraRun $HOME/.local/bin/ghidra
-/opt/upx/upx $HOME/.local/bin/upx
-
