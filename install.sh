@@ -9,6 +9,11 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
+ORIGINAL_DIR=$(pwd)
+cd "$DIR"
+git submodule init
+git submodule update
+cd "$ORIGINAL_DIR"
 
 eval "$DIR/scripts/install_core_packages.sh"
 eval "$DIR/scripts/pyenv_install.sh"
