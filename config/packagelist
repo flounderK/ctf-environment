@@ -22,3 +22,8 @@ binwalk
 docker.io
 tmux
 xinetd
+p7zip-full
+cabextract
+libarchive-tools
+unrar
+xz-utils
