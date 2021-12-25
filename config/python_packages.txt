@@ -2,3 +2,4 @@ IPython
 pwntools
 capstone
 monkeyhex
+ropper
