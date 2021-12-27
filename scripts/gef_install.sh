@@ -23,6 +23,11 @@ fi
 GEF_INSTALL_LOCATION="$HOME/.local/share/gef"
 GEF_SOURCE_LINE="source ~/.local/share/gef/gef.py"
 
+if [ -d "$GEF_INSTALL_LOCATION" ]; then
+	echo "GEF already installed, skipping"
+	exit 0
+fi
+
 if [ ! -d "$GEF_INSTALL_LOCATION" ];then
 	git clone https://github.com/hugsy/gef.git "$GEF_INSTALL_LOCATION"
 fi
