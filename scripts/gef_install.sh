@@ -60,6 +60,9 @@ if [ -f "$HOME/.gdbinit" ];then
 	if [ ! -z "$GEF_SOURCED_MATCH" ];then
 		GEF_SOURCELINE_NEEDED=0
 	fi
+else
+	cp "$DIR/../gdbinit" "$HOME/.gdbinit"
+	GEF_SOURCELINE_NEEDED=0
 fi
 
 if [ "$GEF_SOURCELINE_NEEDED" -ne 0 ];then
@@ -68,10 +71,10 @@ fi
 
 echo "GEF installed"
 
-if [ -f "$HOME/.gdbinit" ]; then
-	mv "$HOME/.gdbinit" "$HOME/.gdbinit.bak"
-	echo "Moved existing gdbinit to $HOME/.gdbinit.bak"
-fi
+# if [ -f "$HOME/.gdbinit" ]; then
+	# mv "$HOME/.gdbinit" "$HOME/.gdbinit.bak"
+	# echo "Moved existing gdbinit to $HOME/.gdbinit.bak"
+# fi
 
-cp "$DIR/../gdbinit" "$HOME/.gdbinit"
+# cp "$DIR/../gdbinit" "$HOME/.gdbinit"
 
