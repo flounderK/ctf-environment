@@ -41,3 +41,10 @@ $DIR/scripts/install_user_symlinks.sh
 # this step is skipped in docker containers
 command -v snap >/dev/null && $DIR/scripts/snap_installs.sh
 
+
+echo "DONE!!"
+echo ""
+echo "You need to log out and then back in for all changes to "
+echo "take effect. Until then, you can run:"
+echo "source ~/.profile && source ~/.bashrc"
+echo ""
