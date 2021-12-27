@@ -17,7 +17,7 @@ UBUNTU_BUILD_DEPS_STR=$(curl "$BUILD_DEPS_URL" | grep --color=never -Poz '(?<=co
 echo "\nRunning '$UBUNTU_BUILD_DEPS_STR'\n"
 eval "$UBUNTU_BUILD_DEPS_STR"
 
-pyenv install "$GLOBAL_VERSION"
+pyenv install -s "$GLOBAL_VERSION"
 pyenv global "$GLOBAL_VERSION"
 
 
