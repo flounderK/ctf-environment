@@ -18,6 +18,25 @@ source ~/.profile && source ~/.bashrc
 ```
 
 ### Install specific components
+If you just want to install part of the environment, here are some helpful commands.
+It is recommended to always run the `install_core_packages.sh` script, as it may install dependencies for some other scripts.
+
+#### Github releases
+```bash
+mkdir -p "$HOME/.local/bin"
+git submodule init
+git submodule update
+
+# download github releases
+./scripts/GithubReleaseDownloader/github_release_downloader.py -d releases -j ./config/github_release_downloads.json
+
+# install packages that aren't in apt to /opt
+sudo -s ./scripts/GithubReleaseDownloader/github_release_installs.sh releases
+
+# Add symlinks for the new packages in /opt
+./scripts/install_priv_symlinks.sh
+./scripts/install_user_symlinks.sh
+```
 
 ## What is installed?
 
