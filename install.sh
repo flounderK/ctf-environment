@@ -26,6 +26,9 @@ source "$HOME/.profile"
 source "$HOME/.bashrc"
 pip install -r "$DIR/config/python_packages.txt"
 
+# full binwalk install
+$DIR/scripts/install_binwalk.sh
+
 # gdb enviornment
 $DIR/scripts/gef_install.sh
 

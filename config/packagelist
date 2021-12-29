@@ -18,7 +18,6 @@ ruby
 zsh
 qemu-system
 qemu-utils
-binwalk
 docker.io
 tmux
 xinetd
