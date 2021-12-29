@@ -2,7 +2,7 @@
 
 curl https://pyenv.run | bash
 
-GLOBAL_VERSION="3.8.0"
+GLOBAL_VERSION="3.8.10"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv virtualenv-init -)"
@@ -17,7 +17,12 @@ UBUNTU_BUILD_DEPS_STR=$(curl "$BUILD_DEPS_URL" | grep --color=never -Poz '(?<=co
 echo "\nRunning '$UBUNTU_BUILD_DEPS_STR'\n"
 eval "$UBUNTU_BUILD_DEPS_STR"
 
-pyenv install -s "$GLOBAL_VERSION"
+RETRY_COUNT=0
+until pyenv install -s "$GLOBAL_VERSION" || (( RETRY_COUNT++ > 5 ))
+do echo "Pyenv install failed"
+	sleep 5
+	echo "Trying again"
+done
 pyenv global "$GLOBAL_VERSION"
 
 
