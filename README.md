@@ -9,7 +9,7 @@ Automatically set up an environment for playing ctf. Target version is currently
 ```bash
 ./install.sh
 ```
-Then **log out and back in again** for all changes to take effect. 
+Then **log out and back in again** for all changes to take effect.
 
 
 If you can't logout first, you will have to run the following command in all terminals to use the pyenv installation of python:
@@ -53,7 +53,7 @@ sudo -s ./scripts/GithubReleaseDownloader/github_release_installs.sh releases
 [pwntools](https://github.com/Gallopsled/pwntools) is a python package that helps with a lot of the more annoying aspects of writing ctf solutions (like communicating with a server in a python script, or converting c values to bytes). This makes pwn problems almost reasonable to solve.
 
 ### Cutter
-[cutter](https://github.com/rizinorg/cutter) is a gui frontend for [radare2](https://github.com/radareorg/radare2), another tool for reverse engineering binaries.  
+[cutter](https://github.com/rizinorg/cutter) is a gui frontend for [radare2](https://github.com/radareorg/radare2), another tool for reverse engineering binaries.
 
 ### Much more
 A lot of basic utilities that make ctf much easier to approach. Also a few edits to your `PATH` that make tools accessible from the command line.
@@ -62,6 +62,7 @@ A lot of basic utilities that make ctf much easier to approach. Also a few edits
 - radare2
 - qemu
 - binutils (x86_64 & i686)
+- binwalk (full install, including optional dependencies not in the version in apt)
 
 
 ## Optional Additional stuff
@@ -72,7 +73,7 @@ A lot of basic utilities that make ctf much easier to approach. Also a few edits
 ```
 
 ## Contributing
-Submit an issue or pull request. 
+Submit an issue or pull request.
 
 ## Development
 For developers, you can test the install of scripts using the following commands:
