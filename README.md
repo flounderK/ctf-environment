@@ -57,6 +57,12 @@ sudo -s ./scripts/GithubReleaseDownloader/github_release_installs.sh releases
 
 ### Much more
 A lot of basic utilities that make ctf much easier to approach. Also a few edits to your `PATH` that make tools accessible from the command line.
+- [upx](https://github.com/upx/upx)
+- docker
+- radare2
+- qemu
+- binutils (x86_64 & i686)
+
 
 ## Optional Additional stuff
 
@@ -64,6 +70,9 @@ A lot of basic utilities that make ctf much easier to approach. Also a few edits
 ```bash
 ./scripts/clone_git_repos.sh
 ```
+
+## Contributing
+Submit an issue or pull request. 
 
 ## Development
 For developers, you can test the install of scripts using the following commands:
