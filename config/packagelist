@@ -26,3 +26,4 @@ cabextract
 libarchive-tools
 unrar
 xz-utils
+zstd
