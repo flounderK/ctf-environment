@@ -67,7 +67,8 @@ A lot of basic utilities that make ctf much easier to approach. Also a few edits
 
 ## Optional Additional stuff
 
-### clone useful repos
+### Clone useful repos
+The following will make a new directory at `~/cloned/`, and clone a few repos that are useful.
 ```bash
 ./scripts/clone_git_repos.sh
 ```
