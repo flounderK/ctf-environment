@@ -15,6 +15,13 @@ mkdir -p ~/cloned
 cd ~/cloned
 
 for i in $(cat "$DIR/../config/gitrepos"); do
-	git clone "$i"
+	DESTNAME=$(echo "$i" | grep --color=never -Po '[^/]+$')
+	DESTNAME="${DESTNAME%.git}"
+	if [ ! -d "$DESTNAME" ]; then
+		git clone "$i"
+	else
+		echo "skipping $i"
+	fi
 done
 
+cd "$ORIGINAL_DIR"
