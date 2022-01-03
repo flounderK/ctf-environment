@@ -1,7 +1,9 @@
+# syntax=docker/dockerfile:1
 FROM ubuntu:20.04
 
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# RUN echo 'Acquire::http { Proxy "http://dockerhost:3142"; };' >> /etc/apt/apt.conf.d/01proxy
 RUN apt update && apt upgrade -y
 RUN apt install -y git sudo curl
 

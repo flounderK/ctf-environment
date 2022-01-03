@@ -78,6 +78,23 @@ Submit an issue or pull request.
 
 ## Development
 For developers, you can test the install of scripts using the following commands:
+To start the test environment:
+```bash
+docker-compose up --build
+```
+
+To enter the test environment and run the install script:
+```bash
+docker-compose exec install_tester bash
+./install.sh
+```
+
+To reset the environment (caches apt packages from previous download):
+```bash
+docker-compose up --build --force-recreate --no-deps -d install_tester
+```
+
+Or to run the docker container without apt package caching:
 ```bash
 docker build -t "ctf-env" .
 docker run --rm -it ctf-env:latest bash

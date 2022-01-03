@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  apt_cacher:
+    build:
+      context: ./test
+      dockerfile: apt_cacher.Dockerfile
+    ports:
+      - '3142:3142'
+  install_tester:
+    build: .
+    links:
+      - 'apt_cacher:apt_proxy'
+    environment:
+      - http_proxy=http://apt_proxy:3142
+    command: tail -F /var/log/dpkg.log
