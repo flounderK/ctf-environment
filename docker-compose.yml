@@ -8,8 +8,13 @@ services:
       - '3142:3142'
   install_tester:
     build: .
+    volumes:
+      - pyenv_versions_cache:/pyenv_versions_cache
     links:
       - 'apt_cacher:apt_proxy'
     environment:
       - http_proxy=http://apt_proxy:3142
-    command: tail -F /var/log/dpkg.log
+    command: bash -c "sudo sed -i -e '$$a export\ http_proxy=http\:\/\/apt_proxy\:3142' /root/.bashrc && tail -F /var/log/dpkg.log"
+
+volumes:
+  pyenv_versions_cache:
