@@ -13,5 +13,9 @@
 	{
 		"project_slug": "upx/upx",
 		"match": "amd64"
+	},
+	{
+		"project_slug": "github/codeql-cli-binaries",
+		"match": "linux"
 	}
 ]
