@@ -18,6 +18,8 @@ ruby
 zsh
 qemu-system
 qemu-utils
+qemu-user
+qemu-user-binfmt
 docker.io
 tmux
 xinetd
