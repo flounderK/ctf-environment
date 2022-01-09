@@ -12,7 +12,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 ORIGINAL_DIR=$(pwd)
 cd "$DIR"
 git submodule init
-git submodule update
+git submodule update --remote
 cd "$ORIGINAL_DIR"
 
 mkdir -p "$HOME/.local/bin"

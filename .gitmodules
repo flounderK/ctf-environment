@@ -1,3 +1,4 @@
 [submodule "scripts/GithubReleaseDownloader"]
 	path = scripts/GithubReleaseDownloader
 	url = https://github.com/flounderK/GithubReleaseDownloader.git
+	branch = master
