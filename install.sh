@@ -22,8 +22,9 @@ $DIR/scripts/install_core_packages.sh
 
 # install a user controlled python enviornment
 $DIR/scripts/pyenv_install.sh
-source "$HOME/.profile"
-source "$HOME/.bashrc"
+. "$HOME/.profile"
+. "$HOME/.bashrc"
+
 pip install -r "$DIR/config/python_packages.txt"
 
 # full binwalk install
@@ -48,6 +49,6 @@ command -v snap >/dev/null && $DIR/scripts/snap_installs.sh
 echo "DONE!!"
 echo ""
 echo "You need to log out and then back in for all changes to "
-echo "take effect. Until then, you can run:"
-echo "source ~/.profile && source ~/.bashrc"
+echo "take effect. Until then, you can run to make your current shell work with pyenv's python:"
+echo ". ~/.profile && . ~/.bashrc"
 echo ""
