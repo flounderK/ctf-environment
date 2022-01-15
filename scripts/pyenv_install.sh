@@ -5,10 +5,11 @@ curl https://pyenv.run | bash
 GLOBAL_VERSION="3.8.10"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-echo "$PATH"
+echo "CURRENT PATH: $PATH"
 eval "$(pyenv virtualenv-init -)"
 PYENV_VERSIONS_DIR="$PYENV_ROOT/versions"
 
+# hack to try to cache built versions of pyenv's python inbetween containers
 if [[ -f /.dockerenv && -d /pyenv_versions_cache ]]; then
 	echo "In docker container and pyenv versions cache found"
 	mkdir -p "$PYENV_VERSIONS_DIR"
@@ -19,6 +20,7 @@ if [[ -f /.dockerenv && -d /pyenv_versions_cache ]]; then
 		fi
 	done
 fi
+# end of hack
 
 RCFILE="$HOME/.bashrc"
 
@@ -38,6 +40,7 @@ do echo "Pyenv install failed"
 done
 pyenv global "$GLOBAL_VERSION"
 
+# Hack to cache built python versions
 if [[ -f /.dockerenv && -d /pyenv_versions_cache ]]; then
 	for i in $(find "$PYENV_VERSIONS_DIR" -maxdepth 1 -mindepth 1 -type d); do
 		if [ ! -d "/pyenv_versions_cache/$(basename $i)" ]; then
@@ -45,6 +48,7 @@ if [[ -f /.dockerenv && -d /pyenv_versions_cache ]]; then
 		fi
 	done
 fi
+# end of hack
 
 
 # the sed invocation inserts the lines at the start of the file
@@ -59,14 +63,18 @@ echo 'eval "$(pyenv init --path)"' >> ~/.profile
 
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 
-source "$HOME/.profile" && source "$HOME/.bashrc"
+. "$HOME/.profile"
+. "$HOME/.bashrc"
+# sourcing doesn't seem to work out of this script, so force it to
+# make pyenv create the shims directory and its contents
+eval "$(pyenv init -)"
 
 echo 'Updating pip'
 pip install -U pip
 pip install -U setuptools
 
 echo 'pyenv will be fully initialized on next login. Until then, you can run these lines in any terminal that you create'
-echo 'source ~/.profile && source ~/.bashrc'
+echo '. ~/.profile && . ~/.bashrc'
 
 # echo 'export PYENV_ROOT="$HOME/.pyenv"'
 # echo 'export PATH="$PYENV_ROOT/bin:$PATH"'
