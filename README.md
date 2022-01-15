@@ -89,7 +89,7 @@ docker-compose exec install_tester bash
 ./install.sh
 ```
 
-To reset the environment (caches apt packages from previous download):
+To reset the environment (attempts to cache apt packages from previous download, still working on that):
 ```bash
 docker-compose up --build --force-recreate --no-deps -d install_tester
 ```
