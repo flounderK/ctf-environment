@@ -10,6 +10,9 @@ link_last_modified() {
 	LINK="$INSTALL_DIR/$2"
 	echo "target $TARGET"
 	echo "link $LINK"
+	if [ -L "$LINK" ]; then
+		rm -f "$LINK"
+	fi
 	sudo ln -f -s "$TARGET" "$LINK"
 }
 
