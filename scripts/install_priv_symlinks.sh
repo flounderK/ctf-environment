@@ -1,7 +1,9 @@
 #!/bin/bash
 
 INSTALL_DIR="/opt"
-SORTED_DIRS=$(find "$INSTALL_DIR" -maxdepth 1 -mindepth 1 -type d -exec ls -1dt "{}" \;)
+# find directories in the install dir and sort them by last modified
+# date
+SORTED_DIRS=$(find "$INSTALL_DIR" -maxdepth 1 -mindepth 1 -type d -printf "%T+ %p\n" | sort -r | cut -d ' ' -f2)
 
 link_last_modified() {
 	# 1 is match
