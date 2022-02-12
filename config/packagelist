@@ -32,3 +32,5 @@ zstd
 patchelf
 xclip
 dwarves
+linux-tools-common
+linux-tools-generic
