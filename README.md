@@ -73,6 +73,10 @@ The following will make a new directory at `~/cloned/`, and clone a few repos th
 ./scripts/clone_git_repos.sh
 ```
 
+Additionally, for a few template scripts that can be good starting points for pwn/re challenges, check out:
+- [my jinja2 script templates](https://github.com/flounderK/mytemplates), most of which are specifically for CTF - and
+- [mktemplate](https://github.com/flounderK/mktemplate), a command line tool for filling in the jinja2 varaibles in those templates
+
 ## Contributing
 Submit an issue or pull request.
 
