@@ -3,3 +3,4 @@ pwntools
 capstone
 monkeyhex
 ropper
+frida-tools
