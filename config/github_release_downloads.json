@@ -17,5 +17,11 @@
 	{
 		"project_slug": "github/codeql-cli-binaries",
 		"match": "linux"
+	},
+	{
+		"project_slug": "astrelsky/Ghidra-Cpp-Class-Analyzer"
+	},
+	{
+		"project_slug": "certcc/kaiju"
 	}
 ]
