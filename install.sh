@@ -18,7 +18,7 @@ cd "$ORIGINAL_DIR"
 mkdir -p "$HOME/.local/bin"
 
 # needed by other steps or just useful packages
-$DIR/scripts/install_core_packages.sh
+$DIR/scripts/install_core_packages.sh $DIR/config/packagelist
 
 # install a user controlled python enviornment
 $DIR/scripts/pyenv_install.sh

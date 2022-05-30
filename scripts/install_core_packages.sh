@@ -10,6 +10,12 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <filepath>"
+    echo "where <filepath> is a path to a file containing a list of packages to install"
+    exit 0
+fi
+
 sudo dpkg --add-architecture i386
 sudo apt update
-sudo apt install -y $(cat "$DIR/../config/packagelist" | tr '\n' ' ')
+sudo DEBIAN_FRONTEND=noninteractive apt install -y $(cat "$1" | tr '\n' ' ')
