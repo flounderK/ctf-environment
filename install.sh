@@ -45,6 +45,8 @@ $DIR/scripts/install_user_symlinks.sh
 # this step is skipped in docker containers
 command -v snap >/dev/null && $DIR/scripts/snap_installs.sh
 
+$DIR/scripts/install_gem_packages.sh $DIR/config/geminstalls
+
 
 echo "DONE!!"
 echo ""
