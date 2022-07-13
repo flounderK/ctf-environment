@@ -4,3 +4,9 @@ capstone
 monkeyhex
 ropper
 frida-tools
+django
+mitmproxy
+ipdb
+docker-compose
+setuptools
+cmake
