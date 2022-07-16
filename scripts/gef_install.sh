@@ -8,6 +8,8 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
+SITE_PACKAGES_DIR=$(python3 -c "import sys; print([i for i in sys.path if i.endswith('site-packages')][0])")
+IS_PYENV=$(python3 -c "a='$SITE_PACKAGES_DIR'; print('1' if a.find('.pyenv') > -1 else '0')")
 
 if [ -z $(command -v git) ];then
 	echo "Please install git"
@@ -49,7 +51,11 @@ fi
 
 echo "INSTALLING GEF"
 cd "$GEF_INSTALL_LOCATION"
-$PYTHON_BIN -mpip install -r requirements.txt
+if [ $IS_PYENV -eq 1 ]; then
+	$PYTHON_BIN -mpip install -r requirements.txt
+else
+	$PYTHON_BIN -mpip install --user -r requirements.txt
+fi
 
 cd "$ORIGINAL_DIR"
 

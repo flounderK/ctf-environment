@@ -9,6 +9,50 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
+print_usage () {
+	echo "Usage: ./install.sh [-p|--pyenv-install]"
+	echo "       -p|--pyenv-install: install python through pyenv"
+
+}
+
+PYENV_INSTALL=0
+DRY_RUN=0
+
+POSITIONAL_ARGS=()
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		-p|--pyenv-install)
+			PYENV_INSTALL=1
+			shift
+			;;
+		-d|--dry-run)
+			DRY_RUN=1
+			shift
+			;;
+		-h|--help)
+			print_usage
+			exit 0
+			;;
+		-*|--*)
+			echo "unknown option $1"
+			print_usage
+			exit 1
+			;;
+		*)
+			POSITIONAL_ARGS+=("$1")
+			shift
+			;;
+	esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}"
+
+if [ $DRY_RUN -eq 1 ]; then
+	echo "PYENV_INSTALL $PYENV_INSTALL"
+	echo "DRY_RUN $DRY_RUN"
+	exit 0
+fi
+
 ORIGINAL_DIR=$(pwd)
 cd "$DIR"
 git submodule init
@@ -20,12 +64,20 @@ mkdir -p "$HOME/.local/bin"
 # needed by other steps or just useful packages
 $DIR/scripts/install_core_packages.sh $DIR/config/packagelist
 
-# install a user controlled python enviornment
-$DIR/scripts/pyenv_install.sh
-. "$HOME/.profile"
-. "$HOME/.bashrc"
+if [ $PYENV_INSTALL -eq 1 ]; then
+	# install a user controlled python enviornment
+	$DIR/scripts/pyenv_install.sh
+	. "$HOME/.profile"
+	. "$HOME/.bashrc"
 
-pip install -r "$DIR/config/python_packages.txt"
+	pip install -r "$DIR/config/python_packages.txt"
+else
+	pip install --user -U pip
+	pip install --user -U setuptools
+	. "$HOME/.profile"
+	. "$HOME/.bashrc"
+	pip install --user -r "$DIR/config/python_packages.txt"
+fi
 
 # full binwalk install
 $DIR/scripts/install_binwalk.sh

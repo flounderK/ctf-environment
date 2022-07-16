@@ -88,3 +88,4 @@ bsdutils
 ltrace
 ruby-dev
 jq
+python3-pip
