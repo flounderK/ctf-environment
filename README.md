@@ -40,9 +40,6 @@ sudo -s ./scripts/GithubReleaseDownloader/github_release_installs.sh releases
 
 ## What is installed?
 
-### Pyenv
-[pyenv](https://github.com/pyenv/pyenv) removes the limitations of using ubuntu's default python installation. The version of `pip` available through `apt` is out of date, and typically restricts the versions of some packages that you can install. By using pyenv, the global version of python for the system won't interfere with the version of python for your user, and vis versa. So upgrading packages through pip won't break any part of your system. As an added bonus, `pip3` no longer requires `sudo`.
-
 ### Ghidra
 [ghidra](https://github.com/NationalSecurityAgency/ghidra) is an excellent tool for reverse engineering binary executables.
 
@@ -54,6 +51,9 @@ sudo -s ./scripts/GithubReleaseDownloader/github_release_installs.sh releases
 
 ### Cutter
 [cutter](https://github.com/rizinorg/cutter) is a gui frontend for [radare2](https://github.com/radareorg/radare2), another tool for reverse engineering binaries.
+
+### Pyenv (optional, not installed by default)
+[pyenv](https://github.com/pyenv/pyenv) removes the limitations of using ubuntu's default python installation. The version of `pip` available through `apt` is out of date, and typically restricts the versions of some packages that you can install. By using pyenv, the global version of python for the system won't interfere with the version of python for your user, and vis versa. So upgrading packages through pip won't break any part of your system. As an added bonus, `pip3` no longer requires `sudo`.
 
 ### Much more
 A lot of basic utilities that make ctf much easier to approach. Also a few edits to your `PATH` that make tools accessible from the command line.
