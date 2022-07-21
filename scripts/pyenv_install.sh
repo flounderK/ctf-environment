@@ -2,7 +2,8 @@
 
 curl https://pyenv.run | bash
 
-GLOBAL_VERSION="3.8.10"
+GLOBAL_VERSION="3.7.12"
+SECONDARY_VERSION="3.8.10"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 echo "CURRENT PATH: $PATH"
@@ -39,6 +40,16 @@ do echo "Pyenv install failed"
 	echo "Trying again"
 done
 pyenv global "$GLOBAL_VERSION"
+
+
+# Install a secondary version of python, because 3.8 breaks a lot of things
+# with the pathlib change
+RETRY_COUNT=0
+until pyenv install -s "$SECONDARY_VERSION" || (( RETRY_COUNT++ > 5 ))
+do echo "Pyenv install failed"
+	sleep 5
+	echo "Trying again"
+done
 
 # Hack to cache built python versions
 if [[ -f /.dockerenv && -d /pyenv_versions_cache ]]; then
