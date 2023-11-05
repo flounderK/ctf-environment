@@ -23,5 +23,8 @@
 	},
 	{
 		"project_slug": "certcc/kaiju"
+	},
+	{
+		"project_slug": "mooncat-greenpy/Ghidra_GolangAnalyzerExtension"
 	}
 ]
