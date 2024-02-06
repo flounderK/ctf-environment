@@ -19,12 +19,6 @@
 		"match": "linux"
 	},
 	{
-		"project_slug": "astrelsky/Ghidra-Cpp-Class-Analyzer"
-	},
-	{
-		"project_slug": "certcc/kaiju"
-	},
-	{
 		"project_slug": "mooncat-greenpy/Ghidra_GolangAnalyzerExtension"
 	}
 ]
