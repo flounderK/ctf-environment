@@ -10,3 +10,4 @@ ipdb
 docker-compose
 setuptools
 cmake
+jsbeautifier
