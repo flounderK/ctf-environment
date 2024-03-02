@@ -11,3 +11,4 @@ docker-compose
 setuptools
 cmake
 jsbeautifier
+lief
